@@ -110,12 +110,8 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-//        this.shapes.stream()
-//        .filter((s) -> isPointInside(s, e.getPoint()))
-//        .findFirst().ifPresent(shape -> activeShape = shape);
 
-        LinkedList<WorkspaceShape> pressedShapes = this.shapes
-                .stream()
+        LinkedList<WorkspaceShape> pressedShapes = this.shapes.stream()
                 .filter((s) -> isPointInside(s, e.getPoint()))
                 .collect(Collectors.toCollection(LinkedList::new));
 
@@ -140,7 +136,6 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
             this.repaint();
         }
     }
-
 
     @Override
     public void mouseReleased(MouseEvent e) {
