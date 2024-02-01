@@ -37,7 +37,8 @@ public class WorkspaceShape {
         );
     }
 
-    private Rectangle getRectangle() {
+
+    public Rectangle getRectangle() {
         return shape;
     }
 
@@ -91,22 +92,5 @@ public class WorkspaceShape {
         this.width = width;
     }
 
-    /**
-     * Draws the shape in the provided graphics environment
-     * according to specifications
-     * @param g
-     * @param transform
-     */
-    public void draw(Graphics g, Point transform) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setPaint(this.getFillColor());
-        g2d.setStroke(this.getStroke());
-        Point p = this.getPosition();
-        this.setPosition(
-                p.x + (int) transform.getX() - this.getWidth()/2,
-                p.y + (int) transform.getY() - this.getHeight()/2
-        );
-        g2d.fill(this.getRectangle());
-        g2d.draw(this.getRectangle());
-    }
+
 }

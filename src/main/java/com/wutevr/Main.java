@@ -34,13 +34,13 @@ public class Main
 
         jf.setVisible(true);
 
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        ws.clearShapes();
+//        try {
+//            Thread.sleep(4000);
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        }
+//
+//        ws.clearShapes();
 
     }
 }
