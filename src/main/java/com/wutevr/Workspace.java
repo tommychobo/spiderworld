@@ -7,10 +7,10 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Produces a workspace as a JPanel that can be displayed inside of
+ * Produces a workspace as a JPanel that can be displayed inside
  * JFrames.
  */
-public class DummyWorkspace extends JPanel {
+public class Workspace extends JPanel {
 
     private List<WorkspaceShape> shapes;
 
@@ -22,7 +22,7 @@ public class DummyWorkspace extends JPanel {
      * @param width
      * @param shapes
      */
-    public DummyWorkspace(int height, int width, @NotNull List<WorkspaceShape> shapes) {
+    public Workspace(int height, int width, @NotNull List<WorkspaceShape> shapes) {
         this.setSize(width, height);
         this.setShapes(shapes);
 
@@ -62,4 +62,5 @@ public class DummyWorkspace extends JPanel {
         this.getShapes().clear();
         this.repaint();
     }
+
 }

@@ -22,7 +22,7 @@ public class Main
         List<WorkspaceShape> shapes = new ArrayList<WorkspaceShape>();
         shapes.add(new WorkspaceShape());
         shapes.add(w1);
-        DummyWorkspace ws = new DummyWorkspace(height/2, width/2, shapes);
+        Workspace ws = new Workspace(height/2, width/2, shapes);
 
         JFrame jf = new JFrame();
         jf.setSize(width, height);
