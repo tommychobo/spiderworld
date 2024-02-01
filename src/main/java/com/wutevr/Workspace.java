@@ -6,17 +6,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Produces a workspace as a JPanel that can be displayed inside
  * JFrames.
  */
-public class Workspace extends JPanel implements MouseListener {
+public class Workspace extends JPanel implements MouseListener, MouseMotionListener {
 
-    private List<WorkspaceShape> shapes;
+    private LinkedList<WorkspaceShape> shapes;
 
-    private Point coordTransform;
+    private Point coordTransform() {
+        return new Point(this.getWidth()/2, this.getHeight()/2);
+    }
+
+    private WorkspaceShape activeShape;
 
     /**
      * Creates a windowed workspace
@@ -24,14 +32,16 @@ public class Workspace extends JPanel implements MouseListener {
      * @param width
      * @param shapes
      */
-    public Workspace(int height, int width, @NotNull List<WorkspaceShape> shapes) {
+    public Workspace(int height, int width, @NotNull LinkedList<WorkspaceShape> shapes) {
         this.setSize(width, height);
         this.setShapes(shapes);
+        this.activeShape = null;
 
-        this.coordTransform = new Point(width/2, height/2);
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
-    private List<WorkspaceShape> getShapes() {
+    private LinkedList<WorkspaceShape> getShapes() {
         return shapes;
     }
 
@@ -61,7 +71,7 @@ public class Workspace extends JPanel implements MouseListener {
         this.shapes.forEach(s -> this.draw(s, g));
     }
 
-    private void setShapes(List<WorkspaceShape> shapes) {
+    private void setShapes(LinkedList<WorkspaceShape> shapes) {
         this.shapes = shapes;
     }
 
@@ -70,20 +80,22 @@ public class Workspace extends JPanel implements MouseListener {
      * (and repaints)
      * @param shapes
      */
-    public void addShapes(List<WorkspaceShape> shapes) {
-        List<WorkspaceShape> slist = this.getShapes();
-        slist.addAll(shapes);
+    public void addShapes(LinkedList<WorkspaceShape> shapes) {
+        LinkedList<WorkspaceShape> slist = this.getShapes();
+        shapes.forEach(slist::addFirst);
         this.repaint();
     }
 
-
-
-//    /**
-//     * For a provided shape, determines if the point is
-//     */
-//    public void isPointInside(Point p) {
-//        return p.x <=
-//    }
+    /**
+     * Given a shape, determines if the provided is inside of that shape.
+     */
+    public boolean isPointInside(WorkspaceShape s, Point p) {
+        Point spos = s.getPosition();
+        return p.x >= this.getWidth()/2 + spos.x - s.getWidth()/2
+                && p.x <= this.getWidth()/2 + spos.x + s.getWidth()/2
+                && p.y >= this.getHeight()/2 + spos.y - s.getHeight()/2
+                && p.y <= this.getHeight()/2 + spos.y + s.getHeight()/2;
+    }
 
     /**
      * Clears all shapes from the workspace (and repaints)
@@ -95,26 +107,57 @@ public class Workspace extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        return;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        this.shapes.stream()
+        .filter((s) -> isPointInside(s, e.getPoint()))
+        .findFirst().ifPresent(shape -> activeShape = shape);
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseDragged(MouseEvent e) {
+        System.out.println("Mouse moved");
+        if(activeShape != null) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 
+            Point trans = this.coordTransform();
+            int transX = (int) trans.getX();
+            int transY = (int) trans.getY();
+            int x = e.getX() - transX - activeShape.getWidth()/4;
+            int y = e.getY() - transY - activeShape.getHeight()/4;
+            activeShape.setPosition(x, y);
+            this.repaint();
+        }
+    }
+
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        activeShape = null;
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        return;
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        return;
+    }
 
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        Optional<WorkspaceShape> shapeMoved = this.shapes.stream()
+                .filter((s) -> isPointInside(s, e.getPoint()))
+                .findFirst();
+
+        if(shapeMoved.isPresent())
+            setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+        else
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 }

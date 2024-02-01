@@ -2,6 +2,7 @@ package com.wutevr;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class Main
                 new Point(30, 40)
         );
 
-        List<WorkspaceShape> shapes = new ArrayList<WorkspaceShape>();
+        LinkedList<WorkspaceShape> shapes = new LinkedList<WorkspaceShape>();
         shapes.add(new WorkspaceShape());
         shapes.add(w1);
         Workspace ws = new Workspace(height/2, width/2, shapes);
@@ -28,19 +29,13 @@ public class Main
         jf.setSize(width, height);
         jf.add(ws);
 
-        List<WorkspaceShape> l2 = new ArrayList<WorkspaceShape>();
-        l2.add(new WorkspaceShape());
-        ws.addShapes(l2);
+//        LinkedList<WorkspaceShape> l2 = new LinkedList<WorkspaceShape>();
+//        l2.add(new WorkspaceShape());
+//        ws.addShapes(l2);
 
         jf.setVisible(true);
 
-//        try {
-//            Thread.sleep(4000);
-//        } catch (InterruptedException e) {
-//            Thread.currentThread().interrupt();
-//        }
-//
-//        ws.clearShapes();
+
 
     }
 }
