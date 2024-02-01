@@ -1,14 +1,12 @@
 package com.wutevr;
 
 import org.jetbrains.annotations.NotNull;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -112,9 +110,19 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.shapes.stream()
-        .filter((s) -> isPointInside(s, e.getPoint()))
-        .findFirst().ifPresent(shape -> activeShape = shape);
+//        this.shapes.stream()
+//        .filter((s) -> isPointInside(s, e.getPoint()))
+//        .findFirst().ifPresent(shape -> activeShape = shape);
+
+        LinkedList<WorkspaceShape> pressedShapes = this.shapes
+                .stream()
+                .filter((s) -> isPointInside(s, e.getPoint()))
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        if(!pressedShapes.isEmpty()) {
+            activeShape = pressedShapes.getLast();
+        }
+
     }
 
     @Override
