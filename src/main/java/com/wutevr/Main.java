@@ -13,7 +13,7 @@ public class Main
         int width = 600;
 
         WorkspaceShape w1 = new WorkspaceShape(
-                new Rectangle(150, 200),
+                150, 200,
                 Color.blue,
                 new BasicStroke(),
                 new Point(30, 40)
