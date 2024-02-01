@@ -1,4 +1,5 @@
 package com.wutevr;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.event.MouseAdapter;
@@ -7,6 +8,17 @@ import java.util.*;
 import javax.swing.JComponent;
 /* Spawn shape when clicking onpanel shape
  *  By Eric Berber 
+ * 
+ *  Will render panel at specfied args and provided 
+ *  polygons
+ * 
+ *  Spawns clicked polygon at default spawn
+ *  
+ *  Currently does not render polgons with respect to panel
+ *  Will need to pre-create polygons in specified location
+ * 
+ *  Usage: 
+ *  frame.add(new ShapePanel(x, y,width, hieght, polygons))
  * 
  */
 public class ShapePanel extends JComponent {
@@ -56,7 +68,11 @@ public class ShapePanel extends JComponent {
 
     public void onShapeClick(Polygon polygon) {
         Graphics g = getGraphics();
-        g.drawPolygon(offsetPolygonToPoint(polygon, 500, 500));
+        Polygon newPolygon = offsetPolygonToPoint(polygon, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y);
+
+        g.setColor(Color.gray);
+        g.fillPolygon(newPolygon);
+        g.drawPolygon(offsetPolygonToPoint(polygon, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y));
     }
 
     @Override
@@ -65,8 +81,10 @@ public class ShapePanel extends JComponent {
         //Draw Container
         g.drawRect(x, y, width, height);
 
-        // Render each polygon in container
+        // Render each polygon  
         for (Polygon polygon : polygons) {
+            g.setColor(Color.gray);
+            g.fillPolygon(polygon);
             g.drawPolygon(polygon);
         }
     }
