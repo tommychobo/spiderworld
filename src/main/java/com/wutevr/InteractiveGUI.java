@@ -1,3 +1,5 @@
+package com.wutevr;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -25,9 +27,10 @@ public class InteractiveGUI {
      * Creates a button at a specified position.
      *
      * @param position The position (x, y coordinates) where the button will be placed.
+     * @param string   The string (text) that the button will display
      */
-    public void createButton(Point position) {
-        button = new JButton("Click Me");
+    public void createButton(Point position, String string) {
+        button = new JButton(string);
         button.setBounds(position.x, position.y, button.getPreferredSize().width, button.getPreferredSize().height);
 
         // Add mouse listener for hover effect
