@@ -1,3 +1,4 @@
+package com.wutevr;
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,9 +8,9 @@ import java.awt.*;
         launchPage.setVisible(true);
  */
 
-public class LaunchPage extends JFrame {
+public class SpiderGrid extends JFrame {
     // Makes a window of size x y (1000, 1000) in the center of the screen
-    LaunchPage(){
+    public SpiderGrid(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 1000);
         this.setLocationRelativeTo(null);

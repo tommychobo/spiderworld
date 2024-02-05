@@ -23,15 +23,19 @@ public class InteractiveGUI {
         frame.setLayout(null); // Use null layout for absolute positioning of components
     }
 
+    public InteractiveGUI(JFrame frame){
+        this.frame = frame;
+    }
+
     /**
      * Creates a button at a specified position.
      *
      * @param position The position (x, y coordinates) where the button will be placed.
      * @param string   The string (text) that the button will display
      */
-    public void createButton(Point position, String string) {
+    public void createButton(int x, int y, int width, int height, String string) {
         button = new JButton(string);
-        button.setBounds(position.x, position.y, button.getPreferredSize().width, button.getPreferredSize().height);
+        button.setBounds(x, y, width, height);
 
         // Add mouse listener for hover effect
         button.addMouseListener(new MouseAdapter() {
