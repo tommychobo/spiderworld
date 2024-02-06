@@ -35,12 +35,13 @@ public class InteractiveGUI {
      */
     public void createButton(int x, int y, int width, int height, String string) {
         button = new JButton(string);
-        button.setBounds(x, y, width, height);
-
+        //button.setBounds(x, y, width, height);
+        
+        //button.setSize(width, height);
         // Add mouse listener for hover effect
         button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                button.setBackground(Color.GRAY); // Change color on hover
+                button.setBackground(Color.RED); // Change color on hover
             }
 
             public void mouseExited(MouseEvent e) {
@@ -52,6 +53,7 @@ public class InteractiveGUI {
         button.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Button Clicked!"));
 
         frame.add(button); // Add button to the frame
+        button.setPreferredSize(new Dimension(width, height));
     }
 
     /**

@@ -7,9 +7,10 @@ public class Main{
         int pixelHeight = 600;
 
         // Create a display with a 60 Hz refresh rate
-        Display dis = new Display(pixelWidth, pixelHeight, 60);
+        //Display dis = new Display(pixelWidth, pixelHeight, 60);
 
         // Set visibility
-        dis.setVisible(true);
+        //dis.setVisible(true);
+        Engine e = new Engine(60);
     }
 }
