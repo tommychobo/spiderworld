@@ -58,7 +58,7 @@ public class WorkspaceShape {
         return stroke;
     }
 
-    private void setStroke(Stroke stroke) {
+    public void setStroke(Stroke stroke) {
         this.stroke = stroke;
     }
 
