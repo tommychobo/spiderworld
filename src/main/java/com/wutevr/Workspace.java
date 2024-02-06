@@ -123,7 +123,6 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("Mouse moved");
         if(activeShape != null) {
             setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 
