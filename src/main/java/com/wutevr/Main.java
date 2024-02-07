@@ -11,6 +11,6 @@ public class Main{
 
         // Set visibility
         //dis.setVisible(true);
-        Engine e = new Engine(60);
+        Display display = new Display(pixelWidth, pixelHeight, 60);
     }
 }
