@@ -15,6 +15,14 @@ public class WorkspaceShape {
 
     private int width;
 
+    /**
+     * Produces a shape that can be placed into a Workspace for dragging and dropping
+     * @param width
+     * @param height
+     * @param fillColor
+     * @param stroke
+     * @param position
+     */
     public WorkspaceShape(int width, int height, Color fillColor, Stroke stroke, Point position) {
         this.setHeight(height);
         this.setWidth(width);

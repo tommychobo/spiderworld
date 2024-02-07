@@ -7,6 +7,10 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class WorkspaceTest {
+
+    /**
+     * Produces a workspace window to test dragging and dropping
+     */
     @Test
     void dragTest() {
 

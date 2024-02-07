@@ -12,12 +12,16 @@ import java.util.stream.Collectors;
 
 /**
  * Produces a workspace as a JPanel that can be displayed inside
- * JFrames.
+ * JFrames. Displays WorkspaceShapes that can be dragged.
  */
 public class Workspace extends JPanel implements MouseListener, MouseMotionListener {
 
     private LinkedList<WorkspaceShape> shapes;
 
+    /**
+     * Provides workspace coordinate to mouse coordinate mapping
+     * @return
+     */
     private Point coordTransform() {
         return new Point(this.getWidth()/2, this.getHeight()/2);
     }
@@ -63,6 +67,10 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
         g2d.draw(r);
     }
 
+    /**
+     * Used by Graphics2D for displaying; not meant to be called manually.
+     * @param g An AWT Graphics object
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -74,7 +82,7 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
     }
 
     /**
-     * Adds all of the given WorkspaceShapes to the workspace
+     * Adds all the given WorkspaceShapes to the workspace
      * (and repaints)
      * @param shapes
      */
@@ -108,6 +116,11 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
         return;
     }
 
+    /**
+     * Sets any shape immediately underneath the mouse as active if the mouse
+     * is clicked.
+     * @param e the event to be processed
+     */
     @Override
     public void mousePressed(MouseEvent e) {
 
@@ -121,6 +134,12 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
 
     }
 
+
+    /**
+     * Runs when the mouse is moved, displacing the WorkspaceShape currently
+     * active if there is one active.
+     * @param e the event to be processed
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         if(activeShape != null) {
@@ -136,6 +155,10 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
         }
     }
 
+    /**
+     * Any shape active is cleared whenever the mouse is released.
+     * @param e the event to be processed
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         activeShape = null;
@@ -151,6 +174,11 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
         return;
     }
 
+    /**
+     * Changes the cursor to a 'move' cursor if the mouse moves inside
+     * of a WorkspaceShape contained within this Workspace.
+     * @param e the event to be processed
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         Optional<WorkspaceShape> shapeMoved = this.shapes.stream()
