@@ -7,24 +7,15 @@ import java.awt.event.*;
 /**
  * InteractiveGUI class for creating a GUI with buttons and sliders positioned at specific coordinates.
  */
-public class InteractiveGUI {
+public class InteractiveGUI extends JPanel{
 
-    private JFrame frame;
+    //private JFrame frame;
     private JButton button;
     private JSlider slider;
 
-    /**
-     * Constructor to initialize the frame.
-     */
-    public InteractiveGUI() {
-        frame = new JFrame("Interactive GUI");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLayout(null); // Use null layout for absolute positioning of components
-    }
 
-    public InteractiveGUI(JFrame frame){
-        this.frame = frame;
+    public InteractiveGUI(Rectangle guiRect){
+        this.setBounds(guiRect);
     }
 
     /**
@@ -50,9 +41,9 @@ public class InteractiveGUI {
         });
 
         // Add action listener for click event
-        button.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Button Clicked!"));
+        button.addActionListener(e -> JOptionPane.showMessageDialog(this, "Button Clicked!"));
 
-        frame.add(button); // Add button to the frame
+        this.add(button); // Add button to the frame
         button.setPreferredSize(new Dimension(width, height));
     }
 
@@ -66,12 +57,12 @@ public class InteractiveGUI {
         slider.setBounds(position.x, position.y, slider.getPreferredSize().width, slider.getPreferredSize().height);
         // Additional slider functionality can be added here
 
-        frame.add(slider); // Add slider to the frame
+        this.add(slider); // Add slider to the frame
     }
 
 
     public void display() {
-        frame.setVisible(true);
+        this.setVisible(true);
     }
 
     // Main method removed for integration purposes

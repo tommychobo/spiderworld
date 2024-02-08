@@ -30,13 +30,13 @@ public class Workspace extends JPanel implements MouseListener, MouseMotionListe
 
     /**
      * Creates a windowed workspace
-     * @param height
-     * @param width
+     * @param wsRect
      * @param shapes
      */
-    public Workspace(int height, int width, @NotNull LinkedList<WorkspaceShape> shapes) {
-        this.setSize(width, height);
+    public Workspace(Rectangle wsRect, @NotNull LinkedList<WorkspaceShape> shapes) {
+        this.setSize(wsRect.width, wsRect.height);
         this.setShapes(shapes);
+        this.setBounds(wsRect);
         this.activeShape = null;
 
         addMouseListener(this);

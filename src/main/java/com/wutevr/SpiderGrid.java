@@ -8,12 +8,10 @@ import java.awt.*;
         launchPage.setVisible(true);
  */
 
-public class SpiderGrid extends JFrame {
+public class SpiderGrid extends JPanel {
     // Makes a window of size x y (1000, 1000) in the center of the screen
-    public SpiderGrid(){
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 1000);
-        this.setLocationRelativeTo(null);
+    public SpiderGrid(Rectangle r){
+        this.setBounds(r);
     }
 
     public void drawDiamond(int row, int column, Color color, Graphics g){

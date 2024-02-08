@@ -12,7 +12,7 @@ public class WorkspaceTest {
      * Produces a workspace window to test dragging and dropping
      */
     @Test
-    void dragTest() {
+    public void dragTest() {
 
         int height = 800;
         int width = 600;
@@ -50,7 +50,7 @@ public class WorkspaceTest {
                 new Point(0, 0)
         ));
 
-        Workspace ws = new Workspace(height/2, width/2, shapes);
+        Workspace ws = new Workspace(new Rectangle(0, 0, height/2, width/2), shapes);
         frame.add(ws);
         frame.setVisible(true);
 

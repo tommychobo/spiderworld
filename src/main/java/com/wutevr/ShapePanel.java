@@ -1,7 +1,10 @@
 package com.wutevr;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
@@ -30,19 +33,23 @@ public class ShapePanel extends JComponent {
     public int DEFAULT_SPAWN_X = 500;
     public int DEFAULT_SPAWN_Y = 500;
     public final ArrayList<Polygon> polygons;
-    public ShapePanel(int x, int y, int width, int height, final ArrayList<Polygon> polygons) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.polygons = polygons;
+    private Workspace wSpace;
+
+    public ShapePanel(Rectangle spRect, Workspace wSpace) {
+        this.x = spRect.x;
+        this.y = spRect.y;
+        this.width = spRect.width;
+        this.height = spRect.height;
+        this.wSpace = wSpace;
+        this.setBounds(spRect);
+        polygons = getDefaultPolys();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me);
                 for (Polygon polygon : polygons) {
                     if (polygon.contains(me.getPoint())) {
-                        onShapeClick(polygon);
+                        addShapeToWorkspace();
                     }
                 }
             }
@@ -87,5 +94,28 @@ public class ShapePanel extends JComponent {
             g.fillPolygon(polygon);
             g.drawPolygon(polygon);
         }
+    }
+
+    public ArrayList<Polygon> getDefaultPolys(){
+        ArrayList<Polygon> pol = new ArrayList<>();
+        pol.add(
+            offsetPolygonToPoint(
+            new Polygon(new int[]{0, 50, 50, 0}, new int[]{0, 0, 50, 50}, 4),
+            x+width/2-25, y+height/2-25)
+        );
+        return pol;
+    }
+
+
+    /**
+     * configures a default shape to add to the workspace. Assigns the shape a random color. Right now, 
+     * All shapes are rectangles. These shapes will eventually turn into code blocks.
+     */
+    public void addShapeToWorkspace(){
+        LinkedList<WorkspaceShape> wssToAdd = new LinkedList<>();
+        Color color = new Color((int)(128*Math.random()+127), (int)(128*Math.random()+127), (int)(128*Math.random()+127));
+        WorkspaceShape wss = new WorkspaceShape(50, 50, color, new BasicStroke(), new Point(0, 0));
+        wssToAdd.add(wss);
+        wSpace.addShapes(wssToAdd);
     }
 }
